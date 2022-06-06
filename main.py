@@ -23,7 +23,6 @@ outputDirectory = "output/csv"
 if(not os.path.exists(outputDirectory)):
     os.makedirs(outputDirectory)
 
-outputDirectory1="output"
 
 # Reading config file
 with open(configFilename, "r") as fd:
