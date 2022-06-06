@@ -37,16 +37,19 @@ print("Loading time series...")
 timeseriesFilename = config["tsv"]
 nclus = config["nclus"]
 
+
+print("Loading time series...")
 ts = pd.read_csv(timeseriesFilename,sep="\t")
 
-K = np.sum(ts, axis=1)
-R = (K != 0)
-xR, = np.where(R == 0)
-ts = np.delete(ts, xR, axis=1)
-
+K = np.sum(ts, axis=0)
 columns=ts.columns
+ts=ts.drop(columns[np.where(K == 0)[0]],axis=1)
+
+
+
 # z-scored time series
-z = stats.zscore(ts,1)
+z = stats.zscore(np.asarray(ts),1)
+
 
 
 print("Building edge time series...")
@@ -54,12 +57,13 @@ T, N= ts.shape
 u,v = np.where(np.triu(np.ones(N),1))           # get edges
 # element-wise prroduct of time series
 ets = (z[:,u]*z[:,v])
-edgeids = {"edgeid":edge for edge in zip(columns[u],columns[v])}
+edgeids = {"edgeid"+str(e):edge for e,edge in enumerate(zip(columns[u],columns[v]))}
 
 nclus=int(config['num_clus'])
 #Clustering edge time series
 etsclus=KMeans(n_clusters=nclus, random_state=0).fit(ets).labels_
 
-np.savetxt('outputDirectory/clustered_edge_timeseries.csv',etsclus,delimiter=',') 
-with open('edgeids.json', 'w') as outfile:
-    json.dump(outputDirectory1/edgeids, outfile)
+
+np.savetxt('output/csv/clustered-edge_timeseries.csv',etsclus,delimiter=',') 
+with open('output/edgeids.json', 'w') as outfile:
+    json.dump(edgeids,outfile)
