@@ -64,5 +64,5 @@ etsclus=KMeans(n_clusters=nclus, random_state=0).fit(ets).labels_
 
 
 np.savetxt('output/csv/clustered-edge_timeseries.csv',etsclus,delimiter=',') 
-with open('output/edgeids.json', 'w') as outfile:
+with open('output/label.json', 'w') as outfile:
     json.dump(edgeids,outfile)
