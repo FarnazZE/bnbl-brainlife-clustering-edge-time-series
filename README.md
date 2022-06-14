@@ -64,7 +64,8 @@ A sample dataset is provided in folder `data` and `config-sample.json`
 
 ## Output
 
-The output is a HTML report with figures in PDF and PNG.
+The output is a clustered edge time series where each item refers to the cluster label (based on the whole brain co-fluctuations) at a given time point.
+
 
 ### Dependencies
 
