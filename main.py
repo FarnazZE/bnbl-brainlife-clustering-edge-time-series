@@ -7,7 +7,7 @@ import os
 import sys
 from pathlib import Path
 import pandas as pd
-from sklearn.cluster import KMeans
+#from sklearn.cluster import KMeans
 from scipy.cluster.vq import vq, kmeans2
 
 
