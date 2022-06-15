@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 import pandas as pd
 from sklearn.cluster import KMeans
+from scipy.cluster.vq import vq, kmeans2
 
 
 
@@ -58,10 +59,10 @@ u,v = np.where(np.triu(np.ones(N),1))           # get edges
 ets = (z[:,u]*z[:,v])
 edgeids = {"edgeid"+str(e):edge for e,edge in enumerate(zip(columns[u],columns[v]))}
 
-nclus=int(config['num_clus'])
+nclus=int(config['nclus'])
 #Clustering edge time series
-etsclus=KMeans(n_clusters=nclus, random_state=0).fit(ets).labels_
-
+#etsclus_original=KMeans(n_clusters=nclus, random_state=0).fit(ets).labels_
+etsclus=kmeans2(ets,k=nclus)[1]
 
 np.savetxt('output/csv/clustered-edge_timeseries.csv',etsclus,delimiter=',') 
 with open('output/label.json', 'w') as outfile:
