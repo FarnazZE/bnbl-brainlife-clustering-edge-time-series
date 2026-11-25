@@ -2,6 +2,48 @@
 <!-- [![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.1-blue.svg)](https://doi.org/10.25663/brainlife.app.435) -->
 
 # Description
+
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **Builds edge time series from regional fMRI time series (products of z-scored node signals) and clusters time points with k-means, outputting the cluster label of each frame.**
+
+Reads a regional time-series TSV, drops all-zero columns, z-scores the data, forms edge time series as element-wise products for every region pair, and clusters the frames into nclus clusters with SciPy kmeans2. Use it for edge-centric analysis of fMRI functional connectivity states.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `generic/timeseries` |
+| 📤 **Outputs** | `neuro/labels` |
+| 🐳 **Container** | `filsilva/cxnetwork:0.2.0` |
+| ⚙️ **Resources** | 1 CPUs |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.642](https://doi.org/10.25663/brainlife.app.642) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `ts` | `generic/timeseries` (time series) | yes | Regional fMRI time series as a TSV table (time points by regions). |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `output` | `neuro/labels` | CSV of the cluster label assigned to each time point, plus label.json mapping edge IDs to region pairs. |
+
+<details>
+<summary><b>⚙️ Parameters</b> (1)</summary>
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `nclus` | number | `5` | number of clusters |
+
+</details>
+
+📚 **References used by this App:**
+- Faskowitz J, Esfahlani FZ, Jo Y, Sporns O, Betzel RF. Edge-centric functional network representations of human cerebral cortex reveal overlapping system-level architecture. Nat Neurosci (2020).
+- Esfahlani FZ, Jo Y, Faskowitz J, Byrge L, Kennedy DP, Sporns O, Betzel RF. High-amplitude cofluctuations in cortical activity drive functional connectivity. PNAS (2020).
+
+<!-- brainlife-app:end -->
+
 Brainlife App for creating edge time series from regional fMRI time series. Edge time series is calculated as the dot product of z-scored regional fMRI time series. 
 ### Authors
 - [Farnaz Zamani Esfahlani]
